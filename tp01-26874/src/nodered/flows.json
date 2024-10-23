@@ -1,0 +1,237 @@
+[
+    {
+        "id": "052be5a6f838fa4e",
+        "type": "inject",
+        "z": "eee1adf0857cb5d3",
+        "name": "Data nascimento",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "2008-10-08",
+        "payloadType": "str",
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "bf5412d7657e15e1"
+            ]
+        ]
+    },
+    {
+        "id": "0b2f109fdf20ddec",
+        "type": "MSSQL",
+        "z": "eee1adf0857cb5d3",
+        "mssqlCN": "17289069c98f0568",
+        "name": "",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "msg",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 740,
+        "y": 200,
+        "wires": [
+            [
+                "b719fa4a509f71ef"
+            ]
+        ]
+    },
+    {
+        "id": "bf5412d7657e15e1",
+        "type": "function",
+        "z": "eee1adf0857cb5d3",
+        "name": "query para data",
+        "func": "msg.payload = `SELECT * FROM Utilizadores WHERE data_nascimento < '${msg.payload}'`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "0b2f109fdf20ddec"
+            ]
+        ]
+    },
+    {
+        "id": "b719fa4a509f71ef",
+        "type": "ui_table",
+        "z": "eee1adf0857cb5d3",
+        "group": "f977f351fcfb770f",
+        "name": "Dados utilizadores",
+        "order": 0,
+        "width": "17",
+        "height": "20",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1010,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "2126e1840e9b0793",
+        "type": "inject",
+        "z": "eee1adf0857cb5d3",
+        "name": "País",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Austria",
+        "payloadType": "str",
+        "x": 250,
+        "y": 380,
+        "wires": [
+            [
+                "96c7ae252f47d94e"
+            ]
+        ]
+    },
+    {
+        "id": "96c7ae252f47d94e",
+        "type": "function",
+        "z": "eee1adf0857cb5d3",
+        "name": "query para país",
+        "func": "msg.payload = `SELECT * FROM Moradas WHERE pais = '${msg.payload}'`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 460,
+        "wires": [
+            [
+                "cd3f2da47b6de34f"
+            ]
+        ]
+    },
+    {
+        "id": "cd3f2da47b6de34f",
+        "type": "MSSQL",
+        "z": "eee1adf0857cb5d3",
+        "mssqlCN": "17289069c98f0568",
+        "name": "",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "msg",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 740,
+        "y": 460,
+        "wires": [
+            [
+                "e6120eddb2a51014"
+            ]
+        ]
+    },
+    {
+        "id": "e6120eddb2a51014",
+        "type": "ui_table",
+        "z": "eee1adf0857cb5d3",
+        "group": "f250efd5a6f2ab19",
+        "name": "Dados moradas",
+        "order": 0,
+        "width": "17",
+        "height": "20",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1000,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "17289069c98f0568",
+        "type": "MSSQL-CN",
+        "tdsVersion": "7_4",
+        "name": "ConnISI",
+        "server": "localhost",
+        "port": "1433",
+        "encyption": true,
+        "trustServerCertificate": true,
+        "database": "TPISI",
+        "useUTC": true,
+        "connectTimeout": "15000",
+        "requestTimeout": "15000",
+        "cancelTimeout": "5000",
+        "pool": "5",
+        "parseJSON": false,
+        "enableArithAbort": true,
+        "readOnlyIntent": false
+    },
+    {
+        "id": "f977f351fcfb770f",
+        "type": "ui_group",
+        "name": "Dados utilizadores",
+        "tab": "c458e7a0d6b9f914",
+        "order": 1,
+        "disp": true,
+        "width": "17",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f250efd5a6f2ab19",
+        "type": "ui_group",
+        "name": "Dados moradas",
+        "tab": "1dd52c23395c9a27",
+        "order": 1,
+        "disp": true,
+        "width": "17",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c458e7a0d6b9f914",
+        "type": "ui_tab",
+        "name": "Dados utilizadores",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "1dd52c23395c9a27",
+        "type": "ui_tab",
+        "name": "Dados moradores",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
